@@ -1,0 +1,33 @@
+{
+  "name": "backdrop-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "babel-node src/index.js",
+    "dev": "nodemon --exec babel-node src/index.js --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "dependencies": {
+    "config": "^3.3.6",
+    "dotenv-safe": "^8.2.0",
+    "express": "^4.17.1",
+    "pg": "^8.5.1",
+    "valid-url": "^1.0.9"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.13",
+    "@babel/core": "^7.12.3",
+    "@babel/node": "^7.12.6",
+    "@babel/plugin-transform-runtime": "^7.13.10",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/register": "^7.12.13",
+    "@babel/runtime": "^7.13.10",
+    "babel-plugin-istanbul": "^6.0.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-register": "^6.26.0",
+    "nodemon": "^2.0.7"
+  }
+}
