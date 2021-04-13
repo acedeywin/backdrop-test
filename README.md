@@ -6,7 +6,7 @@ The query `shortenURL` accepts one required argument:
 
 `url` - this should be a valid URL.
 
-```{
+```query{
   shortenURL(url: "Insert url") {
     shorterUrl
   }
