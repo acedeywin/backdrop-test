@@ -4,6 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "test": "cross-env NODE_ENV=test nyc mocha --recursive src/test/ --compiler js:babel-register --timeout 100000 --exit",
+    "createtable": "babel-node src/db/create-table.js",
+    "droptable": "babel-node src/db/drop-table.js",
     "start": "babel-node src/index.js",
     "dev": "nodemon --exec babel-node src/index.js --watch"
   },
@@ -11,8 +14,14 @@
   "author": "",
   "dependencies": {
     "config": "^3.3.6",
+    "cors": "^2.8.5",
     "dotenv-safe": "^8.2.0",
     "express": "^4.17.1",
+    "express-graphql": "^0.12.0",
+    "express-validator": "5.3.1",
+    "graphql": "^15.5.0",
+    "lodash": "^4.17.21",
+    "node-fetch": "^2.6.1",
     "pg": "^8.5.1",
     "valid-url": "^1.0.9"
   },
@@ -28,6 +37,15 @@
     "babel-plugin-istanbul": "^6.0.0",
     "babel-polyfill": "^6.26.0",
     "babel-register": "^6.26.0",
-    "nodemon": "^2.0.7"
+    "chai": "^4.3.0",
+    "chai-http": "^4.3.0",
+    "core-js": "^3.9.1",
+    "cross-env": "^7.0.3",
+    "mocha": "^8.2.1",
+    "nodemon": "^2.0.7",
+    "nyc": "^15.1.0",
+    "regenerator-runtime": "^0.13.7",
+    "sinon-chai": "^3.5.0",
+    "supertest": "^6.1.3"
   }
 }
