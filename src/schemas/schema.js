@@ -4,7 +4,7 @@ import {
   GraphQLSchema,
   GraphQLNonNull,
 } from "graphql"
-// import validUrl from "valid-url"
+import validUrl from "valid-url"
 import { baseUrl, shortId } from "../utils"
 import Model from "../models/model"
 
