@@ -1,7 +1,6 @@
 import supertest from "supertest"
 import chai from "chai"
 import sinonChai from "sinon-chai"
-import validUrl from "valid-url"
 
 import app from "../index"
 import Model from "../models/model"
@@ -43,27 +42,57 @@ describe("GET", () => {
 })
 
 describe("GraphQL", () => {
-  it("Should return shortenUrl", done => {
-    request.post("/graphql").end((err, res) => {
-      if (err) return done(err)
-      const longUrl =
-        "https://github.com/craigkerstiens/json_node_example/issues/2"
-      const urlCode = "awqert"
+  it("Should return error if url is undefined", done => {
+    const longUrl = ""
 
-      let url = Model.findUrl(longUrl)
+    request
+      .post("/graphql")
+      .send({ query: `{ shortenURL(url: ${longUrl}) { shorterUrl } }` })
+      .end((err, res) => {
+        if (err) return done(err)
 
-      if (!url) {
-        const shorterUrl = `${baseUrl}${urlCode}`
-        const details = { urlCode, url: args.url, shorterUrl }
-        url = Model.createUrl(details)
+        expect(res.body).to.be.an("object")
+        expect(res.body).to.have.property("errors")
+      })
+    done()
+  })
 
-        expect(res.body.details).to.have.property("shorterUrl")
-        expect(res.body.details)
-          .to.have.property("shorterUrl")
-          .to.be.a("string")
-        expect(res.body.details).to.be.an("object")
-      }
-    })
+  it("Should return error if url is invalid", done => {
+    const longUrl = "swe.com"
+
+    request
+      .post("/graphql")
+      .send({ query: `{ shortenURL(url: ${longUrl}) { shorterUrl } }` })
+      .end((err, res) => {
+        if (err) return done(err)
+
+        expect(res.body).to.be.an("object")
+        expect(res.body).to.have.property("errors")
+      })
+    done()
+  })
+
+  it("Should return shortenUrl if url is valid", done => {
+    const longUrl =
+      "https://github.com/craigkerstiens/json_node_example/issues/2"
+    const urlCode = "awqert"
+
+    request
+      .post("/graphql")
+      .send({ query: `{ shortenURL(url: ${longUrl}) { shorterUrl } }` })
+      .end((err, res) => {
+        if (err) return done(err)
+
+        let url = Model.findUrl(longUrl)
+
+        if (!url) {
+          const shorterUrl = `${baseUrl}${urlCode}`
+          const details = { urlCode, url: longUrl, shorterUrl }
+          url = Model.createUrl(details)
+          expect(res.body).to.be.an("object")
+          expect(res.body).to.have.property("shorterUrl")
+        }
+      })
     done()
   })
 })
